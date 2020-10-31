@@ -18,14 +18,27 @@ type errorResponse struct {
 	Error string `json:"error"`
 }
 
-type value struct {
-	Value string `json:"value"`
+type item struct {
+	value      string
+	storedTime int64
+}
+type TTLMap struct {
+	m map[string]*item
+	l sync.RWMutex
 }
 
-var m sync.Map
+func (m *TTLMap) Store(k, v string) {
+	m.l.Lock()
+	it, ok := m.m[k]
+	if !ok {
+		it = &item{value: v}
+		m.m[k] = it
+	}
+	it.storedTime = time.Now().Unix()
+	m.l.Unlock()
+}
 
 func storeHandler(w http.ResponseWriter, r *http.Request) {
-
 	vars := mux.Vars(r)
 	key := vars["key"]
 	var v value
@@ -40,10 +53,6 @@ func storeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	m.Store(key, v.Value)
-	f := func() {
-		m.Delete(key)
-	}
-	time.AfterFunc(30*time.Minute, f)
 	m := message{Message: "key stored successfully"}
 	w.Header().Set("Content-type", "application/json")
 	w.WriteHeader(http.StatusOK)

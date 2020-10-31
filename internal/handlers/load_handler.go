@@ -7,6 +7,20 @@ import (
 	"github.com/gorilla/mux"
 )
 
+type value struct {
+	Value string `json:"value"`
+}
+
+func (m *TTLMap) Load(k string) (v string, ok bool) {
+	m.l.RLock()
+	var it *item
+	if it, ok = m.m[k]; ok {
+		v = it.value
+	}
+	m.l.RUnlock()
+	return
+}
+
 func loadHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := vars["key"]
@@ -20,7 +34,7 @@ func loadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	v := value{
-		Value: val.(string),
+		Value: val,
 	}
 	w.Header().Set("Content-type", "application/json; charset=utf-8")
 	json.NewEncoder(w).Encode(v)
