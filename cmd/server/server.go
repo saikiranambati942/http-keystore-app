@@ -1,7 +1,7 @@
 package main
 
 import (
-	"http-web-app/internal/handlers"
+	"http-keystore-app/internal/handlers"
 	"log"
 	"net/http"
 	"os"
