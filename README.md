@@ -69,13 +69,13 @@ go run cmd/keystore/main.go
 To store a value with respect to a key, trigger the POST "/{key}" endpoint with the below request format:
 ```
 {
-  "value": string,
+  "value": string
 }
 ```
 For example:
 ```
 {
-  "value": "v1",
+  "value": "v1"
 }
 ```
 To retrieve a value with respect to a key, trigger the GET "/{key}" endpoint with the key specifying in url.
@@ -99,6 +99,6 @@ go run cmd/keystore/main.go
 
 ![](https://github.com/saikiranambati942/http-keystore-app/blob/main/docs/images/load_key_present.png)
 
-#### Step3: Try to retrieve a value of a key which is not present
+#### Step4: Try to retrieve a value of a key which is not present
 
 ![](https://github.com/saikiranambati942/http-keystore-app/blob/main/docs/images/load_key_notpresent.png)
