@@ -10,10 +10,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// message struct is used to encode a successful message string.
 type message struct {
 	Message string `json:"message"`
 }
 
+// errorResponse struct is used to encode an error message string.
 type errorResponse struct {
 	Error string `json:"error"`
 }
@@ -22,12 +24,13 @@ type item struct {
 	value      string
 	storedTime int64
 }
-type TTLMap struct {
+type expiryMap struct {
 	m map[string]*item
 	l sync.RWMutex
 }
 
-func (m *TTLMap) Store(k, v string) {
+// Store method is to store a value with respect to a key.
+func (m *expiryMap) store(k, v string) {
 	m.l.Lock()
 	it, ok := m.m[k]
 	if !ok {
@@ -38,7 +41,8 @@ func (m *TTLMap) Store(k, v string) {
 	m.l.Unlock()
 }
 
-func storeHandler(w http.ResponseWriter, r *http.Request) {
+// StoreHandler is for handling the POST requests to store a value with respect to a key.
+func StoreHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := vars["key"]
 	var v value
@@ -52,7 +56,7 @@ func storeHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(er)
 		return
 	}
-	m.Store(key, v.Value)
+	m.store(key, v.Value)
 	m := message{Message: "key stored successfully"}
 	w.Header().Set("Content-type", "application/json")
 	w.WriteHeader(http.StatusOK)

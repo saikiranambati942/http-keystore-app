@@ -1,3 +1,4 @@
+// Package handler provides handlers for different types of requests.
 package handlers
 
 import (
@@ -6,10 +7,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var m *TTLMap
+var m *expiryMap
 
 func init() {
-	m = &TTLMap{m: make(map[string]*item)}
+	m = &expiryMap{m: make(map[string]*item)}
 	go func() {
 		for now := range time.Tick(time.Second) {
 			m.l.Lock()
@@ -23,8 +24,8 @@ func init() {
 	}()
 }
 
-// Routes function routes requests to a specific handler based the requestendpoint
+// Routes function routes requests to a specific handler based the request.
 func Routes(r *mux.Router) {
-	r.HandleFunc("/{key}", storeHandler).Methods("POST")
-	r.HandleFunc("/{key}", loadHandler).Methods("GET")
+	r.HandleFunc("/{key}", StoreHandler).Methods("POST")
+	r.HandleFunc("/{key}", LoadHandler).Methods("GET")
 }

@@ -1,3 +1,4 @@
+// Command server ...
 package main
 
 import (
@@ -9,6 +10,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// main function is the application starting point.
 func main() {
 	r := mux.NewRouter()
 	handlers.Routes(r)

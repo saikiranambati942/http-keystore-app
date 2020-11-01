@@ -7,11 +7,13 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// value struct is used the unmarshal the value with respect to a key.
 type value struct {
 	Value string `json:"value"`
 }
 
-func (m *TTLMap) Load(k string) (v string, ok bool) {
+// load method is to retrieve a value of a given key.
+func (m *expiryMap) load(k string) (v string, ok bool) {
 	m.l.RLock()
 	var it *item
 	if it, ok = m.m[k]; ok {
@@ -21,10 +23,11 @@ func (m *TTLMap) Load(k string) (v string, ok bool) {
 	return
 }
 
-func loadHandler(w http.ResponseWriter, r *http.Request) {
+// LoadHandler is for handling the GET requests with respect to a key.
+func LoadHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	key := vars["key"]
-	val, ok := m.Load(key)
+	val, ok := m.load(key)
 	if !ok {
 		w.Header().Set("Content-type", "application/json")
 		w.WriteHeader(http.StatusNotFound)
