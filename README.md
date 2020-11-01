@@ -93,12 +93,12 @@ go run cmd/server/server.go
 ```
 #### Step2: Store a value with respect to a key
 
-![](https://github.com/saikiranambati942/http-keystore-app/blob/master/docs/images/store_key_value.png)
+![](https://github.com/saikiranambati942/http-keystore-app/blob/main/docs/images/store_key_value.png)
 
 #### Step3: Retrieve a value with respect to a key
 
-![](https://github.com/saikiranambati942/http-keystore-app/blob/master/docs/images/load_key_present.png)
+![](https://github.com/saikiranambati942/http-keystore-app/blob/main/docs/images/load_key_present.png)
 
 #### Step3: Try to retrieve a value of a key which is not present
 
-![](https://github.com/saikiranambati942/http-keystore-app/blob/master/docs/images/load_key_notpresent.png)
+![](https://github.com/saikiranambati942/http-keystore-app/blob/main/docs/images/load_key_notpresent.png)
