@@ -18,15 +18,15 @@
  ### Directory tree
     . 
     ├── cmd
-    |      └──server
-    |             └──server.go             # main function of application i.e; http-keystore-app starts here
+    |      └──keystore
+    |             └──main.go                      # main function of application i.e; http-keystore-app starts here
     |                         
     ├── internal                                  # handlers for key-value storing and retrieving
     |      └──handlers
     |              └──handlers.go
     |              └──store_handler.go
     |              └──load_handler.go
-    |              └──store_handler_test.go         # unit tests for handlers     
+    |              └──store_handler_test.go       # unit tests for handlers     
     |              └──load_handler_test.go                  
     |                               
     |      
@@ -42,7 +42,7 @@
 [`cmd`](https://github.com/saikiranambati942/http-keystore-app/tree/master/cmd "API documentation") package:
 ------------------------------------------------------------------------------------------------------------------
 
- `cmd` package is the initial point of the application where `server` is the placeholder for server.go(starting point of application)
+ `cmd` package is the initial point of the application where `keystore` is the placeholder for main.go(starting point of application)
 
  [`internal`](https://github.com/saikiranambati942/http-keystore-app/tree/master/internal "API documentation") package:
 ------------------------------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ This package also contains the unit test cases covered for all the handlers.
 After cloning the repository (https://github.com/saikiranambati942/http-keystore-app.git), run the below command from the root directory to start the http server on localhost:8080
 
 ```
-go run cmd/server/server.go
+go run cmd/keystore/main.go
 ```
 
 To store a value with respect to a key, trigger the POST "/{key}" endpoint with the below request format:
@@ -89,7 +89,7 @@ http://localhost:8080/k1
 #### Step1: Start server using the below command from the root directory
 
 ```
-go run cmd/server/server.go
+go run cmd/keystore/main.go
 ```
 #### Step2: Store a value with respect to a key
 
