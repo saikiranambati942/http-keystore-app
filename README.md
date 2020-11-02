@@ -12,7 +12,9 @@
  This application provides a simple in-memory cache with an HTTP interface.
 
  ## Features
-
+1. In memory cache key value store
+2. Stored key expires after 30 minutes
+3. If there is no key present, application returns 404 status code.
  ## Repository Structure
 
  ### Directory tree
