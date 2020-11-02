@@ -20,25 +20,28 @@ type errorResponse struct {
 	Error string `json:"error"`
 }
 
+// item struct is used to store the value of a key with its stored time.
 type item struct {
 	value      string
 	storedTime int64
 }
+
+// expiryMap is a struct which contains a map with RWMutex embedded in to it for concurrent safety access.
 type expiryMap struct {
 	m map[string]*item
-	l sync.RWMutex
+	sync.RWMutex
 }
 
 // Store method is to store a value with respect to a key.
 func (m *expiryMap) store(k, v string) {
-	m.l.Lock()
+	m.Lock()
 	it, ok := m.m[k]
 	if !ok {
 		it = &item{value: v}
 		m.m[k] = it
 	}
 	it.storedTime = time.Now().Unix()
-	m.l.Unlock()
+	m.Unlock()
 }
 
 // StoreHandler is for handling the POST requests to store a value with respect to a key.

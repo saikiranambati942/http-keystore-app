@@ -14,12 +14,12 @@ type value struct {
 
 // load method is to retrieve a value of a given key.
 func (m *expiryMap) load(k string) (v string, ok bool) {
-	m.l.RLock()
+	m.RLock()
 	var it *item
 	if it, ok = m.m[k]; ok {
 		v = it.value
 	}
-	m.l.RUnlock()
+	m.RUnlock()
 	return
 }
 
